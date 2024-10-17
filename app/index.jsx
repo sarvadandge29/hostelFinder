@@ -32,7 +32,7 @@ const Welcome = () => {
 
             <Image
               source={images.path}
-              className="w-[136px] h-[15px] absolute -bottom-2 -right-8"
+              className="w-[136px] h-[15px] absolute -bottom-2 -right-14 mb-1 mr-1"
               resizeMode="contain"
             />
 
