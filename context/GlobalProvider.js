@@ -17,16 +17,19 @@ const GlobalProvider = ({ children }) => {
             if (res) {
                 setIsLoggedIn(true);
                 setUser(res);
+                return res; // Return the user object
             } else {
                 setIsLoggedIn(false);
                 setUser(null);
+                return null; // Return null
             }
         } catch (error) {
             console.error(error);
             setIsLoggedIn(false);
             setUser(null);
+            return null; // Return null on error
         }
-    };
+    };    
 
     useEffect(() => {
         fetchCurrentUser()

@@ -1,4 +1,4 @@
-import { View, Text, Linking } from 'react-native';
+import { View, Text, Linking, Alert } from 'react-native';
 import React from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import { icons } from '../constants';
@@ -17,7 +17,7 @@ const MessageButton = ({ propertyName, via, title }) => {
                     if (supported) {
                         Linking.openURL(whatsappURL);
                     } else {
-                        console.log('Unable to open WhatsApp URL');
+                        Alert.alert('Unable to open WhatsApp URL');
                     }
                 })
                 .catch((err) => console.error('An error occurred', err));
@@ -28,7 +28,7 @@ const MessageButton = ({ propertyName, via, title }) => {
                     if (supported) {
                         Linking.openURL(smsURL);
                     } else {
-                        console.log('Unable to open SMS URL');
+                        Alert.alert('Unable to open SMS URL');
                     }
                 })
                 .catch((err) => console.error('An error occurred', err));
