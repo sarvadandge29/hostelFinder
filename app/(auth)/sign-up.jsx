@@ -86,6 +86,7 @@ const SignUp = () => {
               handleChangeText={(e) => setForm({ ...form, name: e })}
               otherStyles="mt-7"
               textStyle="text-base text-gray-100 font-medium"
+              placeholder="Enter Your Name"
             />
 
             <FormField
@@ -95,6 +96,7 @@ const SignUp = () => {
               otherStyles="mt-7"
               keyboardType="phone-pad"
               textStyle="text-base text-gray-100 font-medium"
+              placeholder="Enter Your Phone Number 10 digit"
             />
 
             <FormField
@@ -104,6 +106,7 @@ const SignUp = () => {
               otherStyles="mt-7"
               keyboardType="email-address"
               textStyle="text-base text-gray-100 font-medium"
+              placeholder="Enter Your Email"
             />
 
             <FormField
@@ -112,6 +115,7 @@ const SignUp = () => {
               handleChangeText={(e) => setForm({ ...form, password: e })}
               otherStyles="mt-7"
               textStyle="text-base text-gray-100 font-medium"
+              placeholder="Enter Password"
             />
 
             <CustomButton

@@ -71,6 +71,7 @@ const SignIn = () => {
               otherStyles="mt-7"
               keyboardType="email-address"
               textStyle="text-base text-gray-100 font-medium"
+              placeholder="Enter Your Email"
             />
 
             <FormField
@@ -80,6 +81,7 @@ const SignIn = () => {
               otherStyles="mt-7"
               secureTextEntry // Added for password security
               textStyle="text-base text-gray-100 font-medium"
+              placeholder="Enter Your Password"
             />
 
             <CustomButton
