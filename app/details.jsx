@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -118,8 +118,16 @@ const DetailsScreen = () => {
           onRefresh={onRefreshing}
         />
         <View className="absolute bottom-0 left-0 right-0 bg-primary p-4 flex-row justify-between">
-          <MessageButton propertyName={title} via="whatsapp" />
-          <MessageButton propertyName={title} via="message" />
+          <MessageButton
+            propertyName={title}
+            title="Get Details"
+            via="whatsapp"
+             />
+          <MessageButton
+            propertyName={title}
+            title="Get Details"
+            via="message"
+             />
         </View>
       </SafeAreaView>
     </GestureHandlerRootView>

@@ -3,7 +3,7 @@ import React from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import { icons } from '../constants';
 
-const MessageButton = ({ propertyName, via }) => {
+const MessageButton = ({ propertyName, via, title }) => {
     const openMessagingApp = () => {
         const message = propertyName
             ? `Hello, I am interested in the property: ${propertyName}`
@@ -44,7 +44,7 @@ const MessageButton = ({ propertyName, via }) => {
                 activeOpacity={0.7}
                 className="bg-secondary rounded-2xl min-h-[62px] flex flex-row justify-center items-center mx-1 my-2"
             >
-                <Text className={`text-primary font-semibold text-lg`}>Get Detials Via</Text>
+                <Text className={`text-primary font-semibold text-lg`}>{title} Via</Text>
                 <Image
                     source={iconSource}
                     className="w-6 h-6 ml-1 mb-2 mt-1"
