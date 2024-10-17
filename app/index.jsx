@@ -10,9 +10,16 @@ import { useGlobalContext } from '../context/GlobalProvider';
 
 
 const Welcome = () => {
-  const { isLoading, isLoggedIn } = useGlobalContext();
+  const { isLoading, isLoggedIn,  user } = useGlobalContext();
 
-  if (!isLoading && isLoggedIn) return <Redirect href="/home" />
+
+  if (!isLoading && isLoggedIn){
+    if (user?.isAdmin) {
+      return <Redirect href="/adminHome" />
+    }else{
+      return <Redirect href="/userHome" />
+    }
+  } 
 
   return (
     <GestureHandlerRootView className="flex-1">
@@ -53,5 +60,4 @@ const Welcome = () => {
   )
 }
 
-export default Welcome
-
+export default Welcome;

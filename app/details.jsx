@@ -5,20 +5,19 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { icons, images } from "../constants";
-
 import MessageButton from '../components/MessageButton';
-
 import { getAllHostels } from "../lib/appwrite";
 import useAppwrite from "../lib/useAppwrite";
+import { useGlobalContext } from '../context/GlobalProvider';
 
 const DetailsScreen = () => {
-
   const { refetch } = useAppwrite(getAllHostels);
-
   const { title, fees, description, amenities, image1, image2, image3, image4 } = useLocalSearchParams();
+  const { currentUser } = useGlobalContext();
 
   const handlePress = () => {
-    router.push({ pathname: 'home' });
+    const route = currentUser?.isAdmin ? 'adminHome' : 'userHome';
+    router.push({ pathname: route });
   };
 
   const [refreshing, setRefreshing] = useState(false);
@@ -27,7 +26,7 @@ const DetailsScreen = () => {
     setRefreshing(true);
     await refetch();
     setRefreshing(false);
-  }
+  };
 
   const data = [
     { id: '1', key: 'header' },
@@ -67,7 +66,7 @@ const DetailsScreen = () => {
         return (
           <FlatList
             horizontal
-            data={item.images.filter(Boolean)} // Filter out null or undefined images
+            data={item.images.filter(Boolean)}
             renderItem={({ item: imageUri }) => (
               <Image
                 source={{ uri: imageUri }}
@@ -83,7 +82,7 @@ const DetailsScreen = () => {
       case 'fees':
         return (
           <View className="flex-row mt-3">
-            <Text className="font-bold text-lg text-white">Fees Per Year : </Text>
+            <Text className="font-bold text-lg text-white">Fees Per Year: </Text>
             <Text className="text-lg text-white">Rs{"." + item.fees + "/-"}</Text>
           </View>
         );
@@ -113,7 +112,6 @@ const DetailsScreen = () => {
           data={data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
-
           refreshing={refreshing}
           onRefresh={onRefreshing}
         />
@@ -122,12 +120,12 @@ const DetailsScreen = () => {
             propertyName={title}
             title="Get Details"
             via="whatsapp"
-             />
+          />
           <MessageButton
             propertyName={title}
             title="Get Details"
             via="message"
-             />
+          />
         </View>
       </SafeAreaView>
     </GestureHandlerRootView>

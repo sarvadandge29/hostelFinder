@@ -11,8 +11,10 @@ import { StatusBar } from 'expo-status-bar';
 
 import { createUser } from '../../lib/appwrite';
 import { images } from '../../constants';
+import { useGlobalContext } from '../../context/GlobalProvider'; // Import Global Context
 
 const SignUp = () => {
+  const { fetchCurrentUser, setIsLoggedIn } = useGlobalContext(); // Use context
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -44,14 +46,19 @@ const SignUp = () => {
 
     setIsSubmitting(true);
     try {
-      const result = await createUser(
+      // Create user and wait for result
+      await createUser(
         form.email,
         form.password,
         form.name,
         form.phoneNumber
       );
 
-      router.replace('/home');
+      // Fetch the current user after successful sign-up
+      await fetchCurrentUser();
+      setIsLoggedIn(true); // Set user as logged in
+
+      router.replace('/userHome'); // Navigate to user home
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {

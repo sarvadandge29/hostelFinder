@@ -8,9 +8,11 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { images } from '../../constants';
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
-import { signIn } from "../../lib/appwrite";
+import { signIn, getCurrentUser } from "../../lib/appwrite"; // Import getCurrentUser
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const SignIn = () => {
+  const { setIsLoggedIn } = useGlobalContext(); // Removed fetchCurrentUser from here
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -18,7 +20,6 @@ const SignIn = () => {
   });
 
   const submit = async () => {
-    // Check if all fields are filled
     if (!form.email || !form.password) {
       Alert.alert('Error', 'Please fill in all the fields');
       return;
@@ -26,12 +27,17 @@ const SignIn = () => {
 
     setIsSubmitting(true);
     try {
-      await signIn(
-        form.email,
-        form.password,
-      );
+      await signIn(form.email, form.password);
+      
+      // Fetch user after signing in
+      const user = await getCurrentUser(); 
+      setIsLoggedIn(true);
 
-      router.replace('/home');
+      if (user?.isAdmin) {
+        router.replace('/adminHome');
+      } else {
+        router.replace('/userHome');
+      }
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
@@ -50,9 +56,9 @@ const SignIn = () => {
             }}
           >
             <Image
-            source={images.logo}
-            resizeMode="contain"
-            className="w-[230px] h-[68px]"
+              source={images.logo}
+              resizeMode="contain"
+              className="w-[230px] h-[68px]"
             />
 
             <Text className="text-white text-2xl font-semibold text-semibold">
