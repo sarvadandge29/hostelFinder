@@ -13,10 +13,10 @@ import { useGlobalContext } from '../context/GlobalProvider';
 const DetailsScreen = () => {
   const { refetch } = useAppwrite(getAllHostels);
   const { title, fees, description, amenities, image1, image2, image3, image4 } = useLocalSearchParams();
-  const { currentUser } = useGlobalContext();
+  const { user } = useGlobalContext(); // Updated to use `user` from GlobalContext
 
   const handlePress = () => {
-    const route = currentUser?.isAdmin ? 'adminHome' : 'userHome';
+    const route = user?.isAdmin ? 'adminHome' : 'userHome'; // Updated to check `user`
     router.push({ pathname: route });
   };
 

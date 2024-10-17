@@ -21,32 +21,32 @@ const SignIn = () => {
 
   const submit = async () => {
     if (!form.email || !form.password) {
-        Alert.alert('Error', 'Please fill in all the fields');
-        return;
+      Alert.alert('Error', 'Please fill in all the fields');
+      return;
     }
 
     setIsSubmitting(true);
     try {
-        await signIn(form.email, form.password);
-        const user = await fetchCurrentUser(); // Fetch user directly
+      await signIn(form.email, form.password);
+      const user = await fetchCurrentUser(); // Fetch user directly
 
-        if (user) {
-            setIsLoggedIn(true);
+      if (user) {
+        setIsLoggedIn(true);
 
-            if (user?.isAdmin) {
-                router.replace('/adminHome'); // Admin route
-            } else {
-                router.replace('/userHome'); // User route
-            }
+        if (user?.isAdmin) {
+          router.replace('/adminHome'); // Admin route
         } else {
-            Alert.alert('Error', 'Unable to fetch user information');
+          router.replace('/userHome'); // User route
         }
+      } else {
+        Alert.alert('Error', 'Unable to fetch user information');
+      }
     } catch (error) {
-        Alert.alert('Error', error.message);
+      Alert.alert('Error', error.message);
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
-};
+  };
 
 
   return (
@@ -59,7 +59,7 @@ const SignIn = () => {
               resizeMode="contain"
               className="w-[230px] h-[68px]"
             />
-            
+
             <Text className="text-white text-2xl font-semibold text-semibold">
               Log in to Hostel Finder
             </Text>
