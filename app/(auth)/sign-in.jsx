@@ -59,33 +59,41 @@ const SignIn = () => {
               resizeMode="contain"
               className="w-[230px] h-[68px]"
             />
+            
             <Text className="text-white text-2xl font-semibold text-semibold">
               Log in to Hostel Finder
             </Text>
+
             <FormField
               title="Email"
               value={form.email}
               handleChangeText={(e) => setForm({ ...form, email: e })}
               otherStyles="mt-7"
               keyboardType="email-address"
+              textStyle="text-base text-gray-100 font-medium"
             />
+
             <FormField
               title="Password"
               value={form.password}
               handleChangeText={(e) => setForm({ ...form, password: e })}
               otherStyles="mt-7"
               secureTextEntry // Added for password security
+              textStyle="text-base text-gray-100 font-medium"
             />
+
             <CustomButton
               title="Log In"
               handlePress={submit}
               containerStyles="mt-7"
               isLoading={isSubmitting}
             />
+
             <View className="flex justify-center pt-5 flex-row gap-2">
               <Text className="text-lg text-gray-100 font-regular">
                 Don't have an account?
               </Text>
+
               <Link
                 href="/sign-up"
                 className="text-lg font-semibold text-secondary"

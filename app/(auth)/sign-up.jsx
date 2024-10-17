@@ -11,10 +11,10 @@ import { StatusBar } from 'expo-status-bar';
 
 import { createUser } from '../../lib/appwrite';
 import { images } from '../../constants';
-import { useGlobalContext } from '../../context/GlobalProvider'; // Import Global Context
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const SignUp = () => {
-  const { fetchCurrentUser, setIsLoggedIn } = useGlobalContext(); // Use context
+  const { fetchCurrentUser, setIsLoggedIn } = useGlobalContext();
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -26,8 +26,7 @@ const SignUp = () => {
 
   // Phone number validation function
   const validatePhoneNumber = (phoneNumber) => {
-    // Check for valid phone number: must be 10 digits (can be customized)
-    const phoneRegex = /^[0-9]{10}$/;  // For 10-digit phone numbers
+    const phoneRegex = /^[0-9]{10}$/;
     return phoneRegex.test(phoneNumber);
   };
 
@@ -86,6 +85,7 @@ const SignUp = () => {
               value={form.name}
               handleChangeText={(e) => setForm({ ...form, name: e })}
               otherStyles="mt-7"
+              textStyle="text-base text-gray-100 font-medium"
             />
 
             <FormField
@@ -94,6 +94,7 @@ const SignUp = () => {
               handleChangeText={(e) => setForm({ ...form, phoneNumber: e })}
               otherStyles="mt-7"
               keyboardType="phone-pad"
+              textStyle="text-base text-gray-100 font-medium"
             />
 
             <FormField
@@ -102,6 +103,7 @@ const SignUp = () => {
               handleChangeText={(e) => setForm({ ...form, email: e })}
               otherStyles="mt-7"
               keyboardType="email-address"
+              textStyle="text-base text-gray-100 font-medium"
             />
 
             <FormField
@@ -109,6 +111,7 @@ const SignUp = () => {
               value={form.password}
               handleChangeText={(e) => setForm({ ...form, password: e })}
               otherStyles="mt-7"
+              textStyle="text-base text-gray-100 font-medium"
             />
 
             <CustomButton
@@ -119,15 +122,16 @@ const SignUp = () => {
             />
             
             <View className="justify-center pt-5 flex-row gap-2">
+
               <Text className="text-lg font-regular text-gray-100">
                 Already have an account?{' '}
+
                 <Link className="text-secondary text-lg font-semibold" href="/sign-in">
                   Login
                 </Link>
               </Text>
             </View>
           </View>
-
           <StatusBar backgroundColor="#161622" style="light" />
         </ScrollView>
       </SafeAreaView>

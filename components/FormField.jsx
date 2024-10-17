@@ -2,11 +2,11 @@ import React ,{ useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { icons } from '../constants'
 
-const FormField = ({ title, value, placeHolder, handleChangeText, otherStyles, keyboardType, ...props }) => {
+const FormField = ({ title, value, placeHolder, handleChangeText, otherStyles, keyboardType, textStyle, ...props }) => {
     const [showPassword, setShowPassword] = useState(false)
     return (
     <View className={`space-y-2 ${otherStyles}`}>
-        <Text className="text-base text-gray-100 font-medium">{title}</Text>
+        <Text className={textStyle}>{title}</Text>
         <View className=" borader-2 border-black-200
         w-full h-16 px-4 bg-black-100 rounded-2xl 
         focused:border-secondary items-center
