@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { Link, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
-import { View, Text, Image, Alert, Dimensions } from 'react-native';
+import { View, Text, Alert, Image } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import CustomButton from '../../components/CustomButton';
+import FormField from '../../components/FormField';
+import { StatusBar } from 'expo-status-bar';
+
+import { signIn } from '../../lib/appwrite';
 import { images } from '../../constants';
-import CustomButton from "../../components/CustomButton";
-import FormField from "../../components/FormField";
-import { signIn, getCurrentUser } from "../../lib/appwrite"; // Import getCurrentUser
-import { useGlobalContext } from '../../context/GlobalProvider';
+import { useGlobalContext } from '../../context/GlobalProvider'; // Import Global Context
 
 const SignIn = () => {
-  const { setIsLoggedIn } = useGlobalContext(); // Removed fetchCurrentUser from here
+  const { fetchCurrentUser, setIsLoggedIn } = useGlobalContext(); // Use context
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -28,16 +30,10 @@ const SignIn = () => {
     setIsSubmitting(true);
     try {
       await signIn(form.email, form.password);
-      
-      // Fetch user after signing in
-      const user = await getCurrentUser(); 
-      setIsLoggedIn(true);
+      await fetchCurrentUser(); // Fetch user data after sign-in
+      setIsLoggedIn(true); // Set user as logged in
 
-      if (user?.isAdmin) {
-        router.replace('/adminHome');
-      } else {
-        router.replace('/userHome');
-      }
+      router.replace('/userHome');
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
@@ -48,13 +44,8 @@ const SignIn = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView className="bg-primary h-full">
-        <ScrollView>
-          <View
-            className="w-full flex justify-center h-full px-4 my-6"
-            style={{
-              minHeight: Dimensions.get("window").height - 100,
-            }}
-          >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View className="w-full justify-center flex-1 px-4 my-6">
             <Image
               source={images.logo}
               resizeMode="contain"
@@ -99,6 +90,8 @@ const SignIn = () => {
               </Link>
             </View>
           </View>
+
+          <StatusBar backgroundColor="#161622" style="light" />
         </ScrollView>
       </SafeAreaView>
     </GestureHandlerRootView>

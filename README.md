@@ -8,6 +8,9 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
    ```bash
    npm install
+   npm install nativewind
+   npm install --save-dev tailwindcss@3.3.2
+   npx expo install react-native-appwrite react-native-url-polyfill
    ```
 
 2. Start the app
