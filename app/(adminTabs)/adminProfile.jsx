@@ -76,16 +76,6 @@ const Profile = () => {
               </View>
             </View>
           )}
-          ListFooterComponent={
-            <View className="flex-row">
-              <MessageButton
-                title="Contact us"
-                via="whatsapp" />
-              <MessageButton
-                title="Contact us"
-                via="message" />
-            </View>
-          }
           refreshing={refreshing}
           onRefresh={onRefreshing}
         />
