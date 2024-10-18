@@ -12,6 +12,8 @@ import play from "../assets/icons/play.png";
 import arrow_back from "../assets/icons/arrow_back.png"
 import whatsappLogo from "../assets/icons/whatsappLogo.png"
 import messageLogo from "../assets/icons/messageLogo.png"
+import deleteIcon from "../assets/icons/delete.png"
+import updateIcon from "../assets/icons/update.png"
 
 export default {
   play,
@@ -28,4 +30,6 @@ export default {
   arrow_back,
   whatsappLogo,
   messageLogo,
+  deleteIcon,
+  updateIcon
 };
