@@ -1,36 +1,48 @@
-import { View, Text, SafeAreaView, FlatList, Image } from 'react-native'
-import React, { useState } from 'react'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { images } from '../../constants'
-import SearchInput from '../../components/SearchInput'
-import EmptyState from '../../components/EmptyState'
-import { useGlobalContext } from '../../context/GlobalProvider'
+import { View, Text, SafeAreaView, FlatList, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { images } from '../../constants';
+import SearchInput from '../../components/SearchInput';
+import EmptyState from '../../components/EmptyState';
+import { useGlobalContext } from '../../context/GlobalProvider';
 import useAppwrite from "../../lib/useAppwrite";
 import { getAllHostels } from "../../lib/appwrite";
-import HostelCard from '../../components/HostelCard'
+import HostelCard from '../../components/HostelCard';
 
 const Home = () => {
   const { user } = useGlobalContext();
-  const { data: hostel, refetch } = useAppwrite(getAllHostels);
-
+  const { data: hostels, refetch } = useAppwrite(getAllHostels);
+  
   const [refreshing, setRefreshing] = useState(false);
+  const [hasRefreshed, setHasRefreshed] = useState(false);
+
+  const fetchHostels = async () => {
+    if (!hasRefreshed) {
+      setRefreshing(true);
+      await refetch();
+      setHasRefreshed(true);
+      setRefreshing(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchHostels();
+  }, []);
 
   const onRefreshing = async () => {
     setRefreshing(true);
     await refetch();
     setRefreshing(false);
-  }
+  };
 
   return (
     <GestureHandlerRootView className="flex-1">
       <SafeAreaView className="bg-primary flex-1">
         <FlatList
-          data={hostel}
+          data={hostels}
           keyExtractor={(item) => item.$id}
           renderItem={({ item }) => (
-            <HostelCard
-              data={item}
-            />
+            <HostelCard data={item} onRefresh={onRefreshing}/>
           )}
           ListHeaderComponent={() => (
             <View className="my-6 px-4 space-y-6">
@@ -58,9 +70,7 @@ const Home = () => {
           )}
           ListEmptyComponent={() => (
             <View className="flex-1">
-              <EmptyState
-                title="No hostel Found"
-              />
+              <EmptyState title="No hostels found" />
             </View>
           )}
           refreshing={refreshing}
@@ -68,7 +78,7 @@ const Home = () => {
         />
       </SafeAreaView>
     </GestureHandlerRootView>
-  )
-}
+  );
+};
 
 export default Home;

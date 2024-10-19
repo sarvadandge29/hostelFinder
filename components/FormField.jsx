@@ -12,7 +12,7 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, k
                 <TextInput
                     className="flex-1 text-white font-semibold text-base"
                     value={value}
-                    placeholder={placeholder} // Fixed here
+                    placeholder={placeholder}
                     placeholderTextColor="#7b7b8b"
                     onChangeText={handleChangeText}
                     secureTextEntry={title === 'Password' && !showPassword}

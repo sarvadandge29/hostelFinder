@@ -28,15 +28,15 @@ const SignIn = () => {
     setIsSubmitting(true);
     try {
       await signIn(form.email, form.password);
-      const user = await fetchCurrentUser(); // Fetch user directly
+      const user = await fetchCurrentUser();
 
       if (user) {
         setIsLoggedIn(true);
 
         if (user?.isAdmin) {
-          router.replace('/adminHome'); // Admin route
+          router.replace('/adminHome');
         } else {
-          router.replace('/userHome'); // User route
+          router.replace('/userHome');
         }
       } else {
         Alert.alert('Error', 'Unable to fetch user information');
@@ -79,7 +79,7 @@ const SignIn = () => {
               value={form.password}
               handleChangeText={(e) => setForm({ ...form, password: e })}
               otherStyles="mt-7"
-              secureTextEntry // Added for password security
+              secureTextEntry
               textStyle="text-base text-gray-100 font-medium"
               placeholder="Enter Your Password"
             />

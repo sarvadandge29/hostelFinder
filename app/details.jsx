@@ -7,7 +7,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 
 import { icons, images } from "../constants";
 import MessageButton from '../components/MessageButton';
-import { getAllHostels, deleteHostel } from "../lib/appwrite"; // Add the delete function if needed
+import { getAllHostels, deleteHostel } from "../lib/appwrite";
 import useAppwrite from "../lib/useAppwrite";
 import { useGlobalContext } from '../context/GlobalProvider';
 

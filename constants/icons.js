@@ -14,6 +14,7 @@ import whatsappLogo from "../assets/icons/whatsappLogo.png"
 import messageLogo from "../assets/icons/messageLogo.png"
 import deleteIcon from "../assets/icons/delete.png"
 import updateIcon from "../assets/icons/update.png"
+import unsave from "../assets/icons/unsave.png"
 
 export default {
   play,
@@ -31,5 +32,6 @@ export default {
   whatsappLogo,
   messageLogo,
   deleteIcon,
-  updateIcon
+  updateIcon,
+  unsave
 };

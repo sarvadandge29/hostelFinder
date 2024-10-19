@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { icons } from '../constants';
+import { useGlobalContext } from '../context/GlobalProvider';
+import { isHostelSaved, unsaveHostel, saveHostel } from '../lib/appwrite';
 
-const HostelCard = ({ data }) => {
+const HostelCard = ({ data, route, onRefresh }) => {
+  const { user } = useGlobalContext();
   const router = useRouter();
+  const [isSaved, setIsSaved] = useState(false);
 
   if (!data) {
     return <Text>No hostel data available.</Text>;
@@ -12,11 +16,31 @@ const HostelCard = ({ data }) => {
 
   const { title, thumbnail, fees, description, amenities, image1, image2, image3, image4 } = data;
 
+  useEffect(() => {
+    checkIfSaved();
+  }, []);
+
   const handlePress = () => {
     router.push({
       pathname: 'details',
       params: { title, thumbnail, fees, description, amenities, image1, image2, image3, image4 },
     });
+  };
+
+  const checkIfSaved = async () => {
+    const saved = await isHostelSaved(user.accountId, data.hostelId);
+    setIsSaved(saved);
+  };
+
+  const handleSaveUnsave = async () => {
+    if (isSaved) {
+      await unsaveHostel(user.accountId, data.hostelId);
+      setIsSaved(false);
+    } else {
+      await saveHostel(user.accountId, data.hostelId);
+      setIsSaved(true);
+    }
+    if (onRefresh) onRefresh();
   };
 
   return (
@@ -30,15 +54,18 @@ const HostelCard = ({ data }) => {
           />
         </View>
       </TouchableOpacity>
-      <View className="flex flex-row gap-3 items-start mt-1">
-        <TouchableOpacity className="flex justify-center items-center flex-row flex-1">
-          <View className="flex justify-center flex-1 ml-3">
-            <Text className="font-semibold text-lg text-white " numberOfLines={1}>
-              {title}
-            </Text>
-          </View>
-          <Image source={icons.menu} className="w-5 h-5 mr-2" resizeMode="contain" />
-        </TouchableOpacity>
+      <View className="flex flex-row gap-3 items-start mt-1 mx-3">
+        <Text className="font-semibold text-lg text-white" numberOfLines={1}>
+          {title}
+        </Text>
+        {route !== 'profile' && (
+          <TouchableOpacity
+            className="flex justify-center items-end flex-1"
+            onPress={handleSaveUnsave}
+          >
+            <Image source={isSaved ? icons.unsave : icons.bookmark} className="w-5 h-5 mr-2" resizeMode="contain" />
+          </TouchableOpacity>
+        )}
       </View>
     </SafeAreaView>
   );

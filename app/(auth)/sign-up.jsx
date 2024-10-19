@@ -24,20 +24,17 @@ const SignUp = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Phone number validation function
   const validatePhoneNumber = (phoneNumber) => {
     const phoneRegex = /^[0-9]{10}$/;
     return phoneRegex.test(phoneNumber);
   };
 
   const submit = async () => {
-    // Check if all fields are filled
     if (!form.email || !form.name || !form.password || !form.phoneNumber) {
       Alert.alert('Error', 'Please fill in all the fields');
       return;
     }
 
-    // Validate phone number
     if (!validatePhoneNumber(form.phoneNumber)) {
       Alert.alert('Error', 'Please enter a valid 10-digit phone number');
       return;
@@ -45,7 +42,6 @@ const SignUp = () => {
 
     setIsSubmitting(true);
     try {
-      // Create user and wait for result
       await createUser(
         form.email,
         form.password,
@@ -53,11 +49,10 @@ const SignUp = () => {
         form.phoneNumber
       );
 
-      // Fetch the current user after successful sign-up
       await fetchCurrentUser();
-      setIsLoggedIn(true); // Set user as logged in
+      setIsLoggedIn(true);
 
-      router.replace('/userHome'); // Navigate to user home
+      router.replace('/userHome');
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
