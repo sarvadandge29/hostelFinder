@@ -46,7 +46,6 @@ const Search = () => {
                     )}
                     ListEmptyComponent={() => (
                         <EmptyState
-                            title={"No Hostel Found"}
                             query={query}
                         />
                     )}

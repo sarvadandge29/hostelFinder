@@ -15,6 +15,7 @@ import messageLogo from "../assets/icons/messageLogo.png"
 import deleteIcon from "../assets/icons/delete.png"
 import updateIcon from "../assets/icons/update.png"
 import unsave from "../assets/icons/unsave.png"
+import clear from "../assets/icons/clear.png"
 
 export default {
   play,
@@ -33,5 +34,6 @@ export default {
   messageLogo,
   deleteIcon,
   updateIcon,
-  unsave
+  unsave,
+  clear
 };

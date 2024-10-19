@@ -46,7 +46,7 @@ const SearchInput = ({ initialQuery }) => {
                 <TouchableOpacity onPress={clearQuery}>
                     <Image
                         source={icons.clear}
-                        className="w-5 h-5"
+                        className="w-7 h-7"
                         resizeMode='contain'
                         accessibilityLabel="Clear search"
                     />

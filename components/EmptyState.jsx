@@ -4,7 +4,8 @@ import { View, Text, Image } from "react-native";
 import { images } from "../constants";
 import CustomButton from "./CustomButton";
 
-const EmptyState = ({ title, query }) => {
+const EmptyState = ({ query ="" }) => {
+  
   return (
     <View className="flex justify-center items-center px-4">
       <Image
@@ -14,10 +15,7 @@ const EmptyState = ({ title, query }) => {
       />
 
       <Text className="text-xl text-center font-semibold text-white mt-2">
-        {title}
-      </Text>
-      <Text className="text-xl text-center font-semibold text-white mt-2">
-        {query}
+        No hostels match the search for '{query}'
       </Text>
 
       <CustomButton
