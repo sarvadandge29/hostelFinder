@@ -36,14 +36,27 @@ const DetailsScreen = () => {
     setModalVisible(true);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     Alert.alert(
       'Confirm Deletion',
       'Are you sure you want to delete this hostel?',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: () => deleteHostel(title) },
-      ],
+        {
+          text: 'OK',
+          onPress: async () => {
+            try {
+              await deleteHostel(title);
+              // Navigate back to the appropriate screen after deletion
+              const route = user?.isAdmin ? 'adminHome' : 'userHome';
+              router.push({ pathname: route });
+            } catch (error) {
+              console.error("Error deleting hostel:", error.message);
+              Alert.alert("Deletion Failed", "Could not delete the hostel. Please try again.");
+            }
+          },
+        },
+      ]
     );
   };
 
