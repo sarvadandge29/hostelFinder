@@ -197,7 +197,6 @@ const DetailsScreen = () => {
             </View>
           )}
         </View>
-
         <Modal
           visible={modalVisible}
           transparent={true}
@@ -205,13 +204,11 @@ const DetailsScreen = () => {
           onRequestClose={() => setModalVisible(false)}
         >
           <View style={{ flex: 1, backgroundColor: 'black' }}>
-
             <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
               <View style={{ position: 'absolute', top: 30, right: 20, zIndex: 1 }}>
                 <Text style={{ color: 'white', fontSize: 24 }}>✕</Text>
               </View>
             </TouchableWithoutFeedback>
-
             <ImageViewer
               imageUrls={imageUris.map((uri) => ({ url: uri }))}
               index={selectedImageIndex}

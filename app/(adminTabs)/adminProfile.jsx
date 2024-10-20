@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { View, TouchableOpacity, FlatList, Image, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { icons } from "../../constants";
 import { useGlobalContext } from "../../context/GlobalProvider";
-import { signOut } from "../../lib/appwrite"
+import { signOut } from "../../lib/appwrite";
 import InfoBox from "../../components/InfoBox";
-
+import CustomButton from "../../components/CustomButton";
 
 const Profile = () => {
   const { user, setUser, setIsLoggedIn } = useGlobalContext();
@@ -16,8 +16,12 @@ const Profile = () => {
     await signOut();
     setIsLoggedIn(false);
     setUser(null);
-    router.replace('/sign-in');
+    router.replace("/sign-in");
   };
+
+  const routeToAllUser = () =>{
+    router.push("/allUsers");
+  }
 
   return (
     <GestureHandlerRootView className="flex-1">
@@ -51,6 +55,10 @@ const Profile = () => {
                   subtitleStyles={"text-sm"}
                 />
               </View>
+              <CustomButton 
+              title="See All Users"
+              containerStyles="mt-3 px-5"
+              handlePress={routeToAllUser} />
             </View>
           )}
         />

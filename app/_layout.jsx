@@ -45,6 +45,8 @@ const RootLayout = () => {
         <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
         <Stack.Screen name="details" options={{ headerShown: false }} />
         <Stack.Screen name="updateHostel" options={{ headerShown: false }} />
+        <Stack.Screen name="allUsers" options={{ headerShown: false }} />
+        <Stack.Screen name="userDetails" options={{ headerShown: false }} />
       </Stack>
     </GlobalProvider>
   )

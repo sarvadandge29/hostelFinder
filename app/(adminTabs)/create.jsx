@@ -38,25 +38,14 @@ const create = () => {
         setForm({ ...form, video: result.assets[0] });
       }
     } else {
-      setTimeout(() => {
-        Alert.alert('Document picked', JSON.stringify(result, null, 2));
-      });
+      Alert.alert('Document picking canceled.');
     }
-  };
-
-  const fetchHostels = async () => {
-    try {
-      const hostels = await databases.listDocuments(databaseId, hostelCollectionId);
-      console.log("Fetched hostels:", hostels.documents); // Check the response
-      // Set the fetched hostels to state or context here
-    } catch (error) {
-      console.error("Error fetching hostels:", error);
-    }
+    
   };
 
   const submit = async () => {
     if (!form.title || !form.amenities || !form.description || !form.ownerNumber || !form.fees || !form.image1
-      || !form.image2 || !form.image3 || !form.image4 || !form.video
+      || !form.image2 || !form.image3 || !form.image4
     ) {
       return Alert.alert("Error", "Please fill all fields");
     }
@@ -95,7 +84,6 @@ const create = () => {
         image2: null,
         image3: null,
         image4: null,
-        video: null,
       });
       setUploading(false);
     }
@@ -112,13 +100,6 @@ const create = () => {
             placeholder="Enter hostel name"
             handleChangeText={(e) => setForm({ ...form, title: e })}
             otherStyles="mt-10"
-          />
-
-          <UploadBox
-            title="Upload Video"
-            file={form.video}
-            openPicker={openPicker}
-            selectType="video"
           />
 
           <UploadBox
