@@ -10,7 +10,8 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    npm install nativewind
    npm install --save-dev tailwindcss@3.3.2
-   npm install react-native-image-zoom-viewer
+   npm install expo-av
+   npm install expo-document-picker
    npx expo install react-native-appwrite react-native-url-polyfill
    ```
 
