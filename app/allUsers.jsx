@@ -34,7 +34,7 @@ const AllUsers = () => {
               <Text className="text-lg font-bold text-white mb-4">
                 All Users
               </Text>
-              <SearchInput />
+              <SearchInput searchCategory="User"/>
             </View>
           )}
           refreshing={refreshing}

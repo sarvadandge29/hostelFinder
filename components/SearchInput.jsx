@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import { icons } from "../constants";
 import { router, usePathname } from "expo-router";
 
-const SearchInput = ({ initialQuery, searchCategory }) => {
+const SearchInput = ({ initialQuery, searchCategory}) => {
   const pathname = usePathname();
   const [query, setQuery] = useState(initialQuery || "");
   const inputRef = useRef(null);
@@ -21,7 +21,7 @@ const SearchInput = ({ initialQuery, searchCategory }) => {
     if (pathname.startsWith("/search")) {
       router.setParams({ query, searchCategory });
     } else {
-      router.push(`/search/${query}`);
+      router.push(`/search/${query}?category=${searchCategory}`);
     }
   };
 
@@ -30,13 +30,15 @@ const SearchInput = ({ initialQuery, searchCategory }) => {
     inputRef.current?.focus();
   };
 
+  const search = "Search a " + searchCategory;
+
   return (
     <View className="border-2 border-black-200 w-full h-16 px-4 bg-black-100 rounded-2xl flex-row items-center space-x-4">
       <TextInput
         ref={inputRef}
         className="text-base text-white flex-1 font-regular"
         value={query}
-        placeholder="Search a Hostel"
+        placeholder={search}
         placeholderTextColor="#CDCDE0"
         onChangeText={(e) => setQuery(e)}
         onSubmitEditing={handleSearch}

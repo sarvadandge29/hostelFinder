@@ -1,16 +1,37 @@
 import { router } from "expo-router";
 import { View, Text, Image } from "react-native";
-
 import { images } from "../constants";
 import CustomButton from "./CustomButton";
 import { useGlobalContext } from "../context/GlobalProvider";
 
-
-const EmptyState = ({ query = "", title }) => {
+const EmptyState = ({ query = "", title, category, route }) => {
   const { user } = useGlobalContext();
+  
   const handlePressNavigate = () => {
     const route = user?.isAdmin ? 'adminHome' : 'userHome';
     router.push({ pathname: route });
+  };
+
+  const getEmptyMessage = () => {
+    if (category === "Hostel" && route === "bookmark") {
+      return `No Hostels Saved Yet`;
+    } else if (category === "User") {
+      return `No match users found for ${query}`;
+    }else if (category ==="Hostel") {
+      return `No hostels match the search for ${query}`;
+    } else {
+      return `No ${category} Found`;
+    }
+  };
+
+  const getEmptyMessageSmall = () => {
+    if (route === "bookmark") {
+      return `Start saving your favorite ${category} to see them here!`;
+    } else if (category === "User") {
+      return ``;
+    } else if (category === "Hostel") {
+      return ``;
+    }
   };
 
   return (
@@ -23,13 +44,13 @@ const EmptyState = ({ query = "", title }) => {
 
       {title === 0 ? (
         <Text className="text-xl text-center font-semibold text-white mt-2">
-          No hostels match the search for '{query}'
+          {getEmptyMessage()}
         </Text>
       ) : (
         <View className="items-center">
-          <Text className="text-white font-bold text-3xl">No Hostels Saved Yet</Text>
+          <Text className="text-white font-bold text-xl">{getEmptyMessage()}</Text>
           <Text className="text-gray-400 text-sm">
-            Start saving your favorite hostels to see them here!
+            {getEmptyMessageSmall()}
           </Text>
         </View>
       )}

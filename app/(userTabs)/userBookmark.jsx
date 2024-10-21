@@ -60,12 +60,12 @@ const Bookmark = () => {
               <View className="justify-between items-start flex-row my-6">
                 <Text className="text-2xl font-bold text-white px-2">Saved Hostels</Text>
               </View>
-              <SearchInput />
+              <SearchInput searchCategory="Hostel"/>
             </View>
           )}
           ListEmptyComponent={() => (
             <View className="flex-1 justify-center items-center">
-              <EmptyState/>
+              <EmptyState category="Hostel" route ="bookmark"/>
             </View>
           )}
           refreshing={refreshing}

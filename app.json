@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "hostelfinder",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -14,15 +14,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "package" : "com.sarvad.hostelFinder"
-
+      "bundleIdentifier": "com.sarvad.hostelFinder"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package" : "com.sarvad.hostelFinder"
+      "package": "com.sarvad.hostelFinder"
     },
     "web": {
       "bundler": "metro",
@@ -34,6 +33,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3eafaa73-030a-4d6a-8f93-b1023dbe2f51"
+      }
     }
   }
 }

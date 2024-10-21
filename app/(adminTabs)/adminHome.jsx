@@ -65,7 +65,7 @@ const Home = () => {
                 </View>
               </View>
 
-              <SearchInput />
+              <SearchInput searchCategory="Hostel"/>
             </View>
           )}
           ListEmptyComponent={() => (
