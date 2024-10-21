@@ -14,7 +14,7 @@ const HostelCard = ({ data, route, onRefresh }) => {
     return <Text>No hostel data available.</Text>;
   }
 
-  const { title, thumbnail, fees, description, amenities, image1, image2, image3, image4 } = data;
+  const { title, thumbnail, fees, description, amenities, image1, image2, image3, image4, mapLink } = data;
 
   useEffect(() => {
     checkIfSaved();
@@ -23,7 +23,7 @@ const HostelCard = ({ data, route, onRefresh }) => {
   const handlePress = () => {
     router.push({
       pathname: 'details',
-      params: { title, thumbnail, fees, description, amenities, image1, image2, image3, image4 },
+      params: { title, thumbnail, fees, description, amenities, image1, image2, image3, image4, mapLink },
     });
   };
 

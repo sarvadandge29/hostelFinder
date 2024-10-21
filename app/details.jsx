@@ -4,17 +4,24 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import * as Linking from 'expo-linking';
 
 import { icons, images } from "../constants";
 import MessageButton from '../components/MessageButton';
 import { getAllHostels, deleteHostel } from "../lib/appwrite";
 import useAppwrite from "../lib/useAppwrite";
 import { useGlobalContext } from '../context/GlobalProvider';
+import FormField from '../components/FormField';
+import CustomButton from '../components/CustomButton';
 
 const DetailsScreen = () => {
   const { refetch } = useAppwrite(getAllHostels);
-  const { title, fees, description, amenities, image1, image2, image3, image4 } = useLocalSearchParams();
+  const { title, fees, description, amenities, image1, image2, image3, image4, mapLink } = useLocalSearchParams();
   const { user } = useGlobalContext();
+
+  const [form, setForm] = useState({
+    number:0
+  })
 
   const handlePress = () => {
     const route = user?.isAdmin ? 'adminHome' : 'userHome';
@@ -36,6 +43,26 @@ const DetailsScreen = () => {
     setModalVisible(true);
   };
 
+  const sendDetails = () => {
+    const message = `Hostel Details:
+    \nName: ${title}
+    \nFees Per Year: Rs.${fees}/-
+    \nDescription: ${description}
+    \nAmenities: ${amenities}
+    \nMap Link: ${mapLink}`;
+  
+    const phoneNumber = form.number;
+    if (phoneNumber.length === 10) {
+      const whatsappUrl = `whatsapp://send?phone=+91${phoneNumber}&text=${encodeURIComponent(message)}`;
+      
+      Linking.openURL(whatsappUrl).catch(() => {
+        Alert.alert("Error", "Unable to open WhatsApp.");
+      });
+    } else {
+      Alert.alert("Invalid Number", "Please enter a valid 10-digit phone number.");
+    }
+  };
+
   const handleDelete = async () => {
     Alert.alert(
       'Confirm Deletion',
@@ -47,7 +74,6 @@ const DetailsScreen = () => {
           onPress: async () => {
             try {
               await deleteHostel(title);
-              // Navigate back to the appropriate screen after deletion
               const route = user?.isAdmin ? 'adminHome' : 'userHome';
               router.push({ pathname: route });
             } catch (error) {
@@ -158,29 +184,44 @@ const DetailsScreen = () => {
 
         <View className="absolute bottom-0 left-0 right-0 bg-primary p-4">
           {user?.isAdmin ? (
-            <View className="flex-row justify-between">
-              <TouchableOpacity
-                onPress={handleUpdate}
-                className="bg-green-500 p-4 flex-1 mr-2 rounded-lg items-center flex-row justify-center"
-              >
-                <Text className="text-white font-bold">Update</Text>
+            <View>
+              <FormField
+                title="User Number"
+                textStyle="text-base text-gray-100 font-medium ml-1"
+                value={form.number}
+                placeholder="Enter 10 digit number of user"
+                handleChangeText={(e) => setForm({ ...form, number: e })}
+                otherStyles="mt-10"
+              />
+              <CustomButton
+                title="Send Detials"
+                containerStyles="my-3"
+                handlePress={sendDetails}
+              />
+              <View className="flex-row justify-between">
+                <TouchableOpacity
+                  onPress={handleUpdate}
+                  className="bg-green-500 p-4 flex-1 mr-2 rounded-lg items-center flex-row justify-center"
+                >
+                  <Text className="text-white font-bold">Update</Text>
 
-                <Image
-                  source={icons.updateIcon}
-                  className="w-6 h-6 mx-2"
-                  resizeMode='contain'
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={handleDelete}
-                className="bg-red-500 p-4 flex-1 ml-2 rounded-lg items-center flex-row justify-center">
-                <Text className="text-white font-bold">Delete</Text>
-                <Image
-                  source={icons.deleteIcon}
-                  className="w-6 h-6 mx-2"
-                  resizeMode='contain'
-                />
-              </TouchableOpacity>
+                  <Image
+                    source={icons.updateIcon}
+                    className="w-6 h-6 mx-2"
+                    resizeMode='contain'
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleDelete}
+                  className="bg-red-500 p-4 flex-1 ml-2 rounded-lg items-center flex-row justify-center">
+                  <Text className="text-white font-bold">Delete</Text>
+                  <Image
+                    source={icons.deleteIcon}
+                    className="w-6 h-6 mx-2"
+                    resizeMode='contain'
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           ) : (
             <View className="flex-row justify-between">

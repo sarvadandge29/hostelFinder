@@ -4,7 +4,7 @@
     "slug": "hostelFinder",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/logo.png",
+    "icon": "./assets/images/logo-small.png",
     "scheme": "hostelfinder",
     "userInterfaceStyle": "automatic",
     "splash": {
