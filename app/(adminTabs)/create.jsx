@@ -23,6 +23,7 @@ const create = () => {
     image3: null,
     image4: null,
     video: null,
+    mapLink: '',
   })
 
   const openPicker = async (selectType, imageIndex) => {
@@ -40,16 +41,16 @@ const create = () => {
     } else {
       Alert.alert('Document picking canceled.');
     }
-    
+
   };
 
   const submit = async () => {
     if (!form.title || !form.amenities || !form.description || !form.ownerNumber || !form.fees || !form.image1
-      || !form.image2 || !form.image3 || !form.image4
+      || !form.image2 || !form.image3 || !form.image4 || !form.mapLink
     ) {
       return Alert.alert("Error", "Please fill all fields");
     }
-  
+
     setUploading(true);
     try {
       // Convert fees to float
@@ -57,17 +58,17 @@ const create = () => {
       if (isNaN(feesAsFloat)) {
         throw new Error("Fees must be a valid number.");
       }
-  
+
       // Validate owner number
-      if (form.ownerNumber.length !== 10 ) {
+      if (form.ownerNumber.length !== 10) {
         throw new Error("Owner number must be a valid 10-digit number.");
       }
-  
-    
-      await addHostel({ 
-        ...form, 
-        userId: user.$id, 
-        fees: feesAsFloat, 
+
+
+      await addHostel({
+        ...form,
+        userId: user.$id,
+        fees: feesAsFloat,
       });
       Alert.alert('Success', 'Hostel added successfully');
       router.push('/adminHome');
@@ -84,16 +85,17 @@ const create = () => {
         image2: null,
         image3: null,
         image4: null,
+        mapLink:'',
       });
       setUploading(false);
     }
-  };  
+  };
 
   return (
     <GestureHandlerRootView className="flex-1">
       <SafeAreaView className="flex-1 bg-primary px-4 py-6">
         <ScrollView>
-        <FormField
+          <FormField
             title="Hostel Name"
             textStyle="text-base text-gray-100 font-medium ml-1"
             value={form.title}
@@ -164,6 +166,15 @@ const create = () => {
             handleChangeText={(e) => setForm({ ...form, ownerNumber: e })}
             otherStyles="mt-10"
             keyboardType="phone-pad"
+          />
+
+          <FormField
+            title="Hostel Google Map Link"
+            textStyle="text-base text-gray-100 font-medium ml-1"
+            value={form.mapLink}
+            placeholder="Enter map link here"
+            handleChangeText={(e) => setForm({ ...form, mapLink: e })}
+            otherStyles="mt-10"
           />
 
           <CustomButton
