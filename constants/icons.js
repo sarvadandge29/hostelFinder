@@ -16,6 +16,8 @@ import deleteIcon from "../assets/icons/delete.png"
 import updateIcon from "../assets/icons/update.png"
 import unsave from "../assets/icons/unsave.png"
 import clear from "../assets/icons/clear.png"
+import chatIcon from "../assets/icons/chatIcon.png"
+import sendIcon from "../assets/icons/sendIcon.png"
 
 export default {
   play,
@@ -35,5 +37,7 @@ export default {
   deleteIcon,
   updateIcon,
   unsave,
-  clear
+  clear,
+  chatIcon,
+  sendIcon
 };

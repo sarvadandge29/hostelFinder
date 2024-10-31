@@ -46,6 +46,7 @@ export default {
       hostelCollectionId: process.env.APPWRITE_HOSTEL_COLLECTION_ID,
       storageId: process.env.APPWRITE_STORAGE_ID,
       savedHostelCollectionId: process.env.APPWRITE_SAVED_HOSTEL_COLLECTION_ID,
+      messagesCollectionId:process.env.APPWRITE_MESSAGES_COLLECTION_ID,
     },
   },
 };
