@@ -65,8 +65,8 @@ const Chat = () => {
                     senderAvatar: user.avatar,
                 }
             );
-            // Add new message to the end of the list instead of top
-            setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+            setMessages((prevMessages) => [newMessage, ...prevMessages]);
         } catch (error) {
             console.error("Error sending message:", error);
         }
@@ -81,7 +81,7 @@ const Chat = () => {
                 padding: 5,
             }}
             textInputStyle={{
-                color:'#FFFFFF'
+                color: '#FFFFFF'
             }}
         />
     );

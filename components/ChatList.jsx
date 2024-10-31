@@ -1,5 +1,5 @@
-import { router, useNavigation } from "expo-router";
-import React, { useEffect, useState } from "react";
+import { router, useFocusEffect } from "expo-router";
+import React, { useCallback, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { View, Text, Image } from "react-native";
 import { useGlobalContext } from "../context/GlobalProvider";
@@ -40,6 +40,12 @@ const ChatList = ({ user1 }) => {
       setLatestMessage("No messages yet");
     }
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      getLatestMessageByRoomId(roomId);
+    }, [roomId])
+  );
 
   const createdAt = latestMessage.createdAt;
   const messageDate = new Date(createdAt);
