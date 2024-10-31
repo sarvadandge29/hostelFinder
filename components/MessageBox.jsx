@@ -16,7 +16,7 @@ const MessageBox = ({ item }) => {
         />
       </View>
       <View>
-        <Text className="text-white">{item.senderName} </Text>
+        <Text className="text-secondary-200">{item.senderName} </Text>
         <Text className="text-white">{item.Body} </Text>
         <Text className="text-white">{formattedDateTime} </Text>
       </View>
