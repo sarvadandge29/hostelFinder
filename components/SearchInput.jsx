@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import { icons } from "../constants";
 import { router, usePathname } from "expo-router";
 
-const SearchInput = ({ initialQuery, searchCategory}) => {
+const SearchInput = ({ initialQuery, searchCategory, searchItem}) => {
   const pathname = usePathname();
   const [query, setQuery] = useState(initialQuery || "");
   const inputRef = useRef(null);
@@ -19,9 +19,9 @@ const SearchInput = ({ initialQuery, searchCategory}) => {
     }
 
     if (pathname.startsWith("/search")) {
-      router.setParams({ query, searchCategory });
+      router.setParams({ query, searchCategory,searchItem });
     } else {
-      router.push(`/search/${query}?category=${searchCategory}`);
+      router.push(`/search/${query}?category=${searchCategory}&searchItem=${searchItem}`);
     }
   };
 
