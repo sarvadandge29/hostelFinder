@@ -27,9 +27,13 @@ const Chat = () => {
     }
 
     const roomId = getRoomId(userId, user.$id);
+
     useEffect(() => {
-        getMessagesByRoomId(roomId);
-    }, [])
+        const fetchMessages = async () => {
+            await getMessagesByRoomId(roomId);
+        };
+        fetchMessages();
+    }, [roomId]);
 
     const getMessagesByRoomId = async (roomId) => {
         const response = await databases.listDocuments(
@@ -38,7 +42,13 @@ const Chat = () => {
             [Query.equal("roomId", roomId)]
         );
         setMessages(response.documents);
-    }
+    };
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await getMessagesByRoomId(roomId);
+        setRefreshing(false);
+    };
 
     const handlePress = () => {
         const route = user?.isAdmin ? 'adminChatTab' : 'userChatTab';
@@ -46,38 +56,34 @@ const Chat = () => {
     };
 
     const sendMessage = async () => {
-        if (form.newMessage.trim()!== "") {
-          try {
-            const newMessage = {
-              Body: form.newMessage,
-              roomId: roomId,
-              senderName: user.name,
-              createdAt: new Date().toISOString(),
-              senderAvatar: user.avatar,
-              tempKey: Date.now().toString(),
-            };
-      
-            const response = await databases.createDocument(
-              databaseId,
-              messagesCollectionId,
-              ID.unique(),
-              newMessage
-            );
+        if (form.newMessage.trim() !== "") {
+            try {
+                const newMessage = {
+                    Body: form.newMessage,
+                    roomId: roomId,
+                    senderName: user.name,
+                    createdAt: new Date().toISOString(),
+                    senderAvatar: user.avatar,
+                    tempKey: Date.now().toString(),
+                };
 
-            newMessage.$id = response.$id;
-      
-            setMessages([...messages, newMessage]);
-            setForm({ newMessage: "" });
-          } catch (error) {
-            console.error("Error sending message:", error);
-          }
+                const response = await databases.createDocument(
+                    databaseId,
+                    messagesCollectionId,
+                    ID.unique(),
+                    newMessage
+                );
+
+                newMessage.$id = response.$id;
+
+                setMessages([...messages, newMessage]);
+                setForm({ newMessage: "" });
+            } catch (error) {
+                console.error("Error sending message:", error);
+            }
         }
-      };
-
-    const onRefreshing = async () => {
-        setRefreshing(true);
-        setRefreshing(false);
     };
+
 
     return (
         <GestureHandlerRootView className="flex-1">
@@ -101,10 +107,10 @@ const Chat = () => {
                     data={messages}
                     keyExtractor={(item) => item.$id || item.tempKey}
                     renderItem={({ item }) => (
-                        <MessageBox item={item}/>
+                        <MessageBox item={item} />
                     )}
                     refreshing={refreshing}
-                    onRefresh={onRefreshing}
+                    onRefresh={handleRefresh}
                 />
                 <View className="absolute bottom-0 left-0 right-0 bg-primary p-4">
                     <View className={`space-y-2 `}>
