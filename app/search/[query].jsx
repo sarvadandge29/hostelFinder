@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import useAppwrite from "../../lib/useAppwrite";
-import { searchHostel, searchUser, getAllUsers } from "../../lib/appwrite";
+import { searchHostel, searchUser } from "../../lib/appwrite";
 
 import EmptyState from "../../components/EmptyState";
 import HostelCard from "../../components/HostelCard";

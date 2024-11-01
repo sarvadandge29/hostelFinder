@@ -10,11 +10,14 @@ import SearchInput from "../components/SearchInput";
 import UserCard from "../components/UserCard";
 import useAppwrite from "../lib/useAppwrite";
 import { getAllUsers } from "../lib/appwrite";
+import { useGlobalContext } from "../context/GlobalProvider";
 
 const AllUsers = () => {
-  const { data: users, refetch } = useAppwrite(getAllUsers);
+  const { user } = useGlobalContext();
+  const userAccountId = user.accountId;
+  const { data: users, refetch } = useAppwrite(() => { return getAllUsers(userAccountId) });
   const [refreshing, setRefreshing] = useState(false);
-  
+
 
   const onRefreshing = async () => {
     setRefreshing(true);
@@ -34,7 +37,7 @@ const AllUsers = () => {
               <Text className="text-lg font-bold text-white mb-4">
                 All Users
               </Text>
-              <SearchInput searchCategory="User"/>
+              <SearchInput searchCategory="User" />
             </View>
           )}
           refreshing={refreshing}

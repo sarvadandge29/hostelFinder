@@ -1,13 +1,16 @@
-import { View, Text, SafeAreaView, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, SafeAreaView, FlatList } from 'react-native'
+import React, { useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { databaseId, databases, getAllUsers, messagesCollectionId } from '../../lib/appwrite'
+import { getAllUsers } from '../../lib/appwrite'
 import SearchInput from '../../components/SearchInput'
 import useAppwrite from '../../lib/useAppwrite'
 import ChatList from '../../components/ChatList'
+import { useGlobalContext } from '../../context/GlobalProvider'
 
 const ChatTab = () => {
-    const { data: users, refetch } = useAppwrite(getAllUsers);
+    const { user } = useGlobalContext();
+    const userAccountId = user.accountId;
+    const { data: users, refetch } = useAppwrite(() => { return getAllUsers(userAccountId) });
     const [refreshing, setRefreshing] = useState(false);
 
     const onRefreshing = async () => {
