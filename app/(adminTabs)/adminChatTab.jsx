@@ -1,7 +1,7 @@
 import { View, SafeAreaView, FlatList } from 'react-native'
 import React, { useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { getAllUsers } from '../../lib/appwrite'
+import { getAllUsersExcludingCurrentUser } from '../../lib/appwrite'
 import SearchInput from '../../components/SearchInput'
 import useAppwrite from '../../lib/useAppwrite'
 import ChatList from '../../components/ChatList'
@@ -10,7 +10,7 @@ import { useGlobalContext } from '../../context/GlobalProvider'
 const ChatTab = () => {
     const { user } = useGlobalContext();
     const userAccountId = user.accountId;
-    const { data: users, refetch } = useAppwrite(() => { return getAllUsers(userAccountId) });
+    const { data: users, refetch } = useAppwrite(() => { return getAllUsersExcludingCurrentUser(userAccountId) });
     const [refreshing, setRefreshing] = useState(false);
 
     const onRefreshing = async () => {
