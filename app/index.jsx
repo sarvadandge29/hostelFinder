@@ -10,7 +10,7 @@ import { useGlobalContext } from '../context/GlobalProvider';
 
 
 const Welcome = () => {
-  const { isLoading, isLoggedIn,  user } = useGlobalContext();
+  const { isLoading, isLoggedIn, user } = useGlobalContext();
 
 
   if (!isLoading && isLoggedIn){

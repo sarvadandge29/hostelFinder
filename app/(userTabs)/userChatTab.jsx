@@ -9,8 +9,7 @@ import { useGlobalContext } from '../../context/GlobalProvider'
 
 const ChatTab = () => {
     const { user } = useGlobalContext();
-    const userAccountId = user.accountId;
-    const { data: users, refetch } = useAppwrite(() => { return getAllUsersExcludingCurrentUser(userAccountId) });
+    const { data: users, refetch } = useAppwrite(() => { return getAllUsersExcludingCurrentUser(user) });
     const [refreshing, setRefreshing] = useState(false);
 
     const onRefreshing = async () => {
