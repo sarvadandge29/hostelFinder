@@ -11,7 +11,7 @@ const UserDetails = () => {
   const [name, setName] = useState(nameParam);
   const [PhoneNumber, setphoneNumber] = useState(PhoneNumberParam);
   const [email, setEmail] = useState(emailParam);
-  const [isAdmin, setIsAdmin] = useState(!!isAdminParam);
+  const [isAdmin, setIsAdmin] = useState(!!isAdminParam);  
 
   const handleUpdate = async () => {
     try {
@@ -34,7 +34,7 @@ const UserDetails = () => {
           text: 'OK',
           onPress: async () => {
             try {
-              await deleteUserById(name); 
+              await deleteUserById( name ); 
               const route = isAdmin ? 'adminHome' : 'userHome';
               router.push({ pathname: route });
             } catch (error) {
