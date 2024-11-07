@@ -6,13 +6,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import * as Linking from 'expo-linking';
 
-import { icons, images } from "../constants";
-import MessageButton from '../components/MessageButton';
-import { getAllHostels, deleteHostel } from "../lib/appwrite";
-import useAppwrite from "../lib/useAppwrite";
-import { useGlobalContext } from '../context/GlobalProvider';
-import FormField from '../components/FormField';
-import CustomButton from '../components/CustomButton';
+import { icons, images } from "../../constants";
+import MessageButton from '../../components/MessageButton';
+import { getAllHostels, deleteHostel } from "../../lib/appwrite";
+import useAppwrite from "../../lib/useAppwrite";
+import { useGlobalContext } from '../../context/GlobalProvider';
+import FormField from '../../components/FormField';
+import CustomButton from '../../components/CustomButton';
 
 const DetailsScreen = () => {
   const { refetch } = useAppwrite(getAllHostels);

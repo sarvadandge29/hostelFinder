@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { updateUser, deleteUser, deleteUserById } from "../lib/appwrite";
+import { updateUser, deleteUser, deleteUserById } from "../../lib/appwrite";
 import { router, useLocalSearchParams } from "expo-router";
 
 const UserDetails = () => {

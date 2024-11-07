@@ -1,10 +1,10 @@
 import { View, Text, StatusBar, Image, TouchableOpacity, SafeAreaView, ImageBackground } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { databaseId, databases, messagesCollectionId } from '../lib/appwrite'
+import { databaseId, databases, messagesCollectionId } from '../../lib/appwrite'
 import { router, useLocalSearchParams } from 'expo-router'
-import { icons, images } from '../constants'
-import { useGlobalContext } from '../context/GlobalProvider';
+import { icons, images } from '../../constants'
+import { useGlobalContext } from '../../context/GlobalProvider';
 import { ID, Query } from 'react-native-appwrite'
 import { Bubble, GiftedChat, InputToolbar } from 'react-native-gifted-chat';
 

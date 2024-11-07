@@ -6,11 +6,11 @@ import {
   FlatList,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import SearchInput from "../components/SearchInput";
-import UserCard from "../components/UserCard";
-import useAppwrite from "../lib/useAppwrite";
-import { getAllUsersExcludingCurrentUser } from "../lib/appwrite";
-import { useGlobalContext } from "../context/GlobalProvider";
+import SearchInput from "../../components/SearchInput";
+import UserCard from "../../components/UserCard";
+import useAppwrite from "../../lib/useAppwrite";
+import { getAllUsersExcludingCurrentUser } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const AllUsers = () => {
   const { user } = useGlobalContext();

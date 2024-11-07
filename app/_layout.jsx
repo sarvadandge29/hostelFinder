@@ -43,11 +43,7 @@ const RootLayout = () => {
         <Stack.Screen name='(adminTabs)' options={{ headerShown: false }} />
         <Stack.Screen name='(userTabs)' options={{ headerShown: false }} />
         <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
-        <Stack.Screen name="details" options={{ headerShown: false }} />
-        <Stack.Screen name="updateHostel" options={{ headerShown: false }} />
-        <Stack.Screen name="allUsers" options={{ headerShown: false }} />
-        <Stack.Screen name="userDetails" options={{ headerShown: false }} />
-        <Stack.Screen name="chat" options={{ headerShown: false }} />
+        <Stack.Screen name="(common)" options={{ headerShown: false }} />
       </Stack>
     </GlobalProvider>
   )
